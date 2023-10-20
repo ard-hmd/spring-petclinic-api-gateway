@@ -1,0 +1,17 @@
+# Namespace where the application will be deployed
+namespace: "prod"
+
+# Prefix for the repository where Helm charts are hosted
+repository_prefix: "ardhmd"
+
+alb:
+  # Tags to associate with the Application Load Balancer
+  tags: "Name=alb-petclinic-prod"
+
+ingress:
+  # Subnets for the ingress controller
+  subnets: "subnet-031d09ae511d36e65,subnet-06cf9ad071e34e642"
+  # ACM certificate ARN for HTTPS
+  certificateArn: "arn:aws:acm:eu-west-3:414147595918:certificate/bb7e117b-ba23-4c36-aee1-d6d6fb1a384c"
+  # Hostname for the ingress controller
+  host: "www-prod.ahermand.fr"
