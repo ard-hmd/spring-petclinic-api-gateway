@@ -3,8 +3,8 @@ version: 0.2
 env:
   variables:
     #ENVIRONMENT: dev # this has been commented because it is not set at the codebuild project level
-    REPOSITORY_PREFIX: michelnguyenfr
-    REPOSITORY_URI: michelnguyenfr/spring-petclinic-cloud-api-gateway
+    REPOSITORY_PREFIX: ardhmd
+    REPOSITORY_URI: ard-hmd/spring-petclinic-cloud-api-gateway
     TAG: latest
     ARCH: amd64
 
