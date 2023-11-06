@@ -34,3 +34,4 @@ artifacts:
   files: 
     - '*'
     - ./scripts/setup_k8s_tools.sh
+    - ./charts
