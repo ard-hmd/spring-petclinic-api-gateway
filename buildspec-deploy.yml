@@ -2,7 +2,6 @@ version: 0.2
 
 env:
   variables:
-    #ENVIRONMENT: dev # this has been commented because it is not set at the codebuild project level
     REPOSITORY_PREFIX: ardhmd
     REPOSITORY_URI: ardhmd/spring-petclinic-cloud-api-gateway
     TAG: latest
@@ -10,8 +9,6 @@ env:
 
   parameter-store:
     CLUSTER_NAME: PETCLINIC_EKS_CLUSTER_NAME
-    # DOCKER_LOGIN: PETCLINIC_DOCKER_USERNAME
-    # DOCKER_PASSWORD: PETCLINIC_DOCKER_PASSWORD
     ACCESS_KEY_ID: ACCESS_KEY_ID
     SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
     REGION: PETCLINIC_REGION
@@ -24,28 +21,19 @@ phases:
       - export AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY
       - export AWS_DEFAULT_REGION=$REGION
       - export AWS_DEFAULT_OUTPUT="json"
-
       - ./scripts/setup_k8s_tools.sh
       
     finally:
       - echo "Checking versions of packages newly installed:"
-      # - kubectl version --output=json
-      # - eksctl version
-      # - helm version
-      # - docker --version
+      - docker --version
+      - mvn --version
+      - java -version
+      - git version
   pre_build:
     commands:
       - echo Install completed on `date`
-      
-      # - echo Fetching Docker image
-      # - echo $DOCKER_CREDENTIALS > config.json
-      # - export DOCKER_CONFIG=.
-      # - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-      # - docker pull $REPOSITORY_URI:$TAG
-      # - rm config.json
-      
       - echo "Connecting to EKS cluster:" $CLUSTER_NAME
-      - aws eks update-kubeconfig --region $REGION --name $CLUSTER_NAME # connecting to the petclinic EKS cluster
+      - aws eks update-kubeconfig --region $REGION --name $CLUSTER_NAME
       
       - echo "Checking if Kubernetes namespace exists (${ENVIRONMENT})"
       - |
@@ -58,23 +46,25 @@ phases:
   build:
     commands:
       - echo Entered the Deployment phase...
-      - echo Deployment started on `date`
+      - echo Deployment started on $(date)
       - helm list -n $ENVIRONMENT
-      - pwd
+      - echo Upgrading the Helm chart...
       - helm upgrade --install spring-api-gateway-${ENVIRONMENT} charts/ --values charts/helm_values/values-${ENVIRONMENT}.yaml -n $ENVIRONMENT
+      - echo Scaling down the deployment...
+      - kubectl scale deployment api-gateway --replicas=0 -n ${ENVIRONMENT}
+      - echo Scaling up the deployment...
+      - kubectl scale deployment api-gateway --replicas=1 -n ${ENVIRONMENT}
+
   
   post_build:
     commands:
       - echo "Deployment to EKS COMPLETED on `date`"
-      - echo "If api-gateway is deployed, try this following URL':' http://$(kubectl get svc -n $ENVIRONMENT api-gateway | awk '{print $4}' |tail -n +2)"
+      - echo "If api-gateway is deployed, try this following URL':' http://$(kubectl get ingress -n ${ENVIRONMENT} | awk '{print $3}' |tail -n +2)"
       - |
-        if kubectl get svc -n $ENVIRONMENT api-gateway; then
-          # Test from api-gateway to cibler microservice
-          # curl -I http://$(kubectl get svc -n $ENVIRONMENT api-gateway | awk '{print $4}' | tail -n +2)
-          echo "test on api-gateway"
+        response=$(curl -Is https://www-${ENVIRONMENT}.vetops.net/api/gateway/owners/0)
+        http_status=$(echo "$response" | head -n 1 | awk '{print $2}')
+        if [ "$http_status" == "200" ]; then
+            echo "The request succeeded with HTTP response code 200 (OK)"
         else
-          # Insert your test on the microservice directly here
-          # For example:
-          # curl -I http://microservice-hostname:port
-          echo "Test on the microservice directly"
+            echo "The request failed with HTTP response code $http_status"
         fi
