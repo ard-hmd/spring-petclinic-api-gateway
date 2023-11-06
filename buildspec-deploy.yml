@@ -3,15 +3,15 @@ version: 0.2
 env:
   variables:
     #ENVIRONMENT: dev # this has been commented because it is not set at the codebuild project level
-    REPOSITORY_PREFIX: michelnguyenfr
-    REPOSITORY_URI: michelnguyenfr/spring-petclinic-cloud-api-gateway
+    REPOSITORY_PREFIX: ardhmd
+    REPOSITORY_URI: ardhmd/spring-petclinic-cloud-api-gateway
     TAG: latest
     ARCH: amd64
 
   parameter-store:
     CLUSTER_NAME: PETCLINIC_EKS_CLUSTER_NAME
-    DOCKER_LOGIN: PETCLINIC_DOCKER_USERNAME
-    DOCKER_PASSWORD: PETCLINIC_DOCKER_PASSWORD
+    # DOCKER_LOGIN: PETCLINIC_DOCKER_USERNAME
+    # DOCKER_PASSWORD: PETCLINIC_DOCKER_PASSWORD
     ACCESS_KEY_ID: ACCESS_KEY_ID
     SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
     REGION: PETCLINIC_REGION

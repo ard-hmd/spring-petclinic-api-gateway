@@ -10,8 +10,8 @@ alb:
 
 ingress:
   # Subnets for the ingress controller
-  subnets: "subnet-031d09ae511d36e65,subnet-06cf9ad071e34e642"
+  subnets: "subnet-040b0deb1d0b615db,subnet-0a697e68b5be14b84"
   # ACM certificate ARN for HTTPS
-  certificateArn: "arn:aws:acm:eu-west-3:414147595918:certificate/bb7e117b-ba23-4c36-aee1-d6d6fb1a384c"
+  certificateArn: "arn:aws:acm:eu-west-3:414147595918:certificate/f56d0bc0-9093-495a-a813-8526e8323556"
   # Hostname for the ingress controller
-  host: "www-qa.ahermand.fr"
+  host: "www-qa.vetops.net"
