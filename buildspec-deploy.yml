@@ -77,6 +77,4 @@ phases:
           # curl -I http://microservice-hostname:port
           echo "Test on the microservice directly"
         fi
-
-artifacts:
-  files: dummy_artifact
+        
