@@ -30,5 +30,5 @@ phases:
       - export DOCKER_CONFIG=.
       # - docker push ${REPOSITORY_PREFIX}/spring-petclinic-cloud-api-gateway:latest
       - echo "Push the Docker image to DockerHub COMPLETED on `date`"
-  artifacts:
-    files: dummy_artifact
+artifacts:
+  files: dummy_artifact
