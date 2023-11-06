@@ -10,7 +10,7 @@ alb:
 
 ingress:
   # Subnets for the ingress controller
-  subnets: "subnet-0a1a2f2c2916ccbe5,subnet-0d0e5fee59c895691"
+  subnets: "subnet-040b0deb1d0b615db,subnet-0a697e68b5be14b84"
   # ACM certificate ARN for HTTPS
   certificateArn: "arn:aws:acm:eu-west-3:414147595918:certificate/f56d0bc0-9093-495a-a813-8526e8323556"
   # Hostname for the ingress controller
