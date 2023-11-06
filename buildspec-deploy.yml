@@ -4,7 +4,7 @@ env:
   variables:
     REPOSITORY_PREFIX: ardhmd
     REPOSITORY_URI: ardhmd/spring-petclinic-cloud-api-gateway
-    TAG: v1.0
+    TAG: latest
     ARCH: amd64
 
   parameter-store:

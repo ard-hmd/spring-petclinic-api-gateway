@@ -18,7 +18,7 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - mvn spring-boot:build-image -Pk8s -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX} -Dspring-boot.build-image.imageName=${REPOSITORY_PREFIX}/spring-petclinic-cloud-api-gateway:v1.0
+      - mvn spring-boot:build-image -Pk8s -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
       - echo Build completed on `date`
   post_build:
     on-failure: ABORT
@@ -27,7 +27,7 @@ phases:
       - echo "Pushing the Docker image to DockerHub..."
       - echo $DOCKER_CREDENTIALS > config.json
       - export DOCKER_CONFIG=.
-      - docker push ${REPOSITORY_PREFIX}/spring-petclinic-cloud-api-gateway:v1.0
+      - docker push ${REPOSITORY_PREFIX}/spring-petclinic-cloud-api-gateway:latest
       - echo "Push the Docker image to DockerHub COMPLETED on `date`"
 artifacts:
   files: 
