@@ -50,11 +50,6 @@ phases:
       - helm list -n $ENVIRONMENT
       - echo Upgrading the Helm chart...
       - helm upgrade --install spring-api-gateway-${ENVIRONMENT} charts/ --values charts/helm_values/values-${ENVIRONMENT}.yaml -n $ENVIRONMENT
-      - echo Scaling down the deployment...
-      - kubectl scale deployment api-gateway --replicas=0 -n ${ENVIRONMENT}
-      - echo Scaling up the deployment...
-      - kubectl scale deployment api-gateway --replicas=1 -n ${ENVIRONMENT}
-
   
   post_build:
     commands:
