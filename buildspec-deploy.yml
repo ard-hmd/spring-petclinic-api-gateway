@@ -25,7 +25,7 @@ phases:
       - export AWS_DEFAULT_REGION=$REGION
       - export AWS_DEFAULT_OUTPUT="json"
 
-      # - ./scripts/setup_k8s_tools.sh
+      - ./scripts/setup_k8s_tools.sh
       
     finally:
       - echo "Checking versions of packages newly installed:"
