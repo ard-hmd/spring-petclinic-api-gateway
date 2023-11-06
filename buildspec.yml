@@ -18,7 +18,7 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - mvn spring-boot:build-image -Pk8s -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
+      # - mvn spring-boot:build-image -Pk8s -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
       - echo Build completed on `date`
       - touch dummy_artifact
   post_build:
