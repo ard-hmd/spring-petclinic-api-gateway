@@ -32,4 +32,4 @@ phases:
       - echo "Push the Docker image to DockerHub COMPLETED on `date`"
 artifacts:
   files: 
-    - '*'
+    - dummy_artifact
