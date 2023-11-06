@@ -32,6 +32,4 @@ phases:
       - echo "Push the Docker image to DockerHub COMPLETED on `date`"
 artifacts:
   files: 
-    - '*'
-    - ./scripts/setup_k8s_tools.sh
-    - ./charts
+    - '**/*'
