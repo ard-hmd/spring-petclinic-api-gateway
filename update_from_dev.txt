@@ -1,1 +1,1 @@
-pipeline ci/cd test
+This is the pipeline test
