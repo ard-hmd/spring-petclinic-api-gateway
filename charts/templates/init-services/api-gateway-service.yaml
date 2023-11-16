@@ -4,6 +4,11 @@ kind: Service
 metadata:
   labels:
     app: api-gateway
+  annotations:
+    prometheus.io/job-name: "api-gateway"
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
   name: api-gateway
   namespace: {{ .Values.namespace }}
 spec:
